@@ -104,6 +104,13 @@ Launch the application locally:
 uvicorn titiler.application.main:app
 ```
 
+Alternativelly, you can create a [create a FastAPI router](https://developmentseed.org/titiler/advanced/tiler_factories/) (`fastapi.APIRouter`) with a minimal set of endpoints.
+
+You can run our custom app from the src folder with:
+```bash
+python titiler_app.py
+```
+
 ### Vector Data Service: TiPg
 
 [TiPg](https://developmentseed.org/tipg/) is a **Python** package that helps create lightweight Open Geospatial Consortium (OGC) [Features](https://ogcapi.ogc.org/features/) and [Tiles](https://ogcapi.ogc.org/tiles/) API with a PostGIS Database backend. It is used for serving and styling vector data.
