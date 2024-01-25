@@ -1,22 +1,40 @@
+name: map_design_studio_demo
 channels:
   - conda-forge
 dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
   - affine=2.4.0
   - aiobotocore=2.5.0
   - aiohttp=3.8.4
   - aioitertools=0.11.0
   - aiosignal=1.3.1
   - alembic=1.11.1
+  - alsa-lib=1.2.9
   - anyio=3.7.0
   - appdirs=1.4.4
   - argon2-cffi=21.3.0
   - argon2-cffi-bindings=21.2.0
+  - arrow=1.3.0
   - asttokens=2.2.1
   - async-lru=2.0.2
-  - async-timeout=4.0.2
   - async_generator=1.10
+  - attr=2.5.1
   - attrs=23.1.0
   - autopep8=2.0.2
+  - aws-c-auth=0.6.28
+  - aws-c-cal=0.5.27
+  - aws-c-common=0.8.23
+  - aws-c-compression=0.2.17
+  - aws-c-event-stream=0.3.0
+  - aws-c-http=0.7.10
+  - aws-c-io=0.13.26
+  - aws-c-mqtt=0.8.13
+  - aws-c-s3=0.3.11
+  - aws-c-sdkutils=0.1.11
+  - aws-checksums=0.1.16
+  - aws-crt-cpp=0.20.2
+  - aws-sdk-cpp=1.10.57
   - babel=2.12.1
   - backcall=0.2.0
   - backports=1.0
@@ -86,7 +104,6 @@ dependencies:
   - filelock=3.12.2
   - fiona=1.9.4
   - flit-core=3.9.0
-  - folium=0.14.0
   - font-ttf-dejavu-sans-mono=2.37
   - font-ttf-inconsolata=3.000
   - font-ttf-source-code-pro=2.038
@@ -95,6 +112,7 @@ dependencies:
   - fonts-conda-ecosystem=1
   - fonts-conda-forge=1
   - fonttools=4.40.0
+  - fqdn=1.5.1
   - freetype=2.12.1
   - freexl=1.0.6
   - frozenlist=1.3.3
@@ -153,6 +171,7 @@ dependencies:
   - ipython=8.14.0
   - ipython_genutils=0.2.0
   - ipywidgets=8.0.6
+  - isoduration=20.11.0
   - isort=5.12.0
   - jaraco.classes=3.2.3
   - jedi=0.18.2
@@ -162,7 +181,9 @@ dependencies:
   - joblib=1.3.0
   - json-c=0.16
   - json5=0.9.5
+  - jsonpointer=2.4
   - jsonschema=4.17.3
+  - jsonschema-with-format-nongpl=4.17.3
   - jupyter-lsp=2.2.0
   - jupyter_client=8.3.0
   - jupyter_core=5.3.1
@@ -178,12 +199,14 @@ dependencies:
   - jupyterlab_widgets=3.0.7
   - kealib=1.5.1
   - keyring=24.2.0
+  - keyutils=1.6.1
   - kiwisolver=1.4.4
   - krb5=1.20.1
   - lame=3.100
   - lcms2=2.15
   - ld_impl_linux-64=2.40
   - lerc=4.0.0
+  - libabseil=20230125.3
   - libaec=1.0.6
   - libarchive=3.6.2
   - libarrow=12.0.1
@@ -191,10 +214,12 @@ dependencies:
   - libbrotlicommon=1.0.9
   - libbrotlidec=1.0.9
   - libbrotlienc=1.0.9
+  - libcap=2.69
   - libcblas=3.9.0
   - libclang=15.0.7
   - libclang13=15.0.7
   - libcrc32c=1.1.2
+  - libcups=2.3.3
   - libcurl=8.1.2
   - libdeflate=1.18
   - libedit=3.1.20191231
@@ -203,9 +228,13 @@ dependencies:
   - libexpat=2.5.0
   - libffi=3.4.2
   - libflac=1.4.3
+  - libgcc-ng=13.2.0
   - libgcrypt=1.10.1
   - libgdal=3.7.0
+  - libgfortran-ng=13.2.0
+  - libgfortran5=13.2.0
   - libglib=2.76.3
+  - libgomp=13.2.0
   - libgoogle-cloud=2.12.0
   - libgpg-error=1.47
   - libgrpc=1.54.2
@@ -216,11 +245,14 @@ dependencies:
   - libllvm15=15.0.7
   - libnetcdf=4.9.2
   - libnghttp2=1.52.0
+  - libnsl=2.0.1
+  - libnuma=2.0.16
   - libogg=1.3.4
   - libopenblas=0.3.23
   - libopus=1.3.1
   - libpng=1.6.39
   - libpq=15.3
+  - libprotobuf=3.21.12
   - librttopo=1.1.0
   - libsndfile=1.2.0
   - libsodium=1.0.18
@@ -228,6 +260,8 @@ dependencies:
   - libspatialite=5.0.1
   - libsqlite=3.42.0
   - libssh2=1.11.0
+  - libstdcxx-ng=13.2.0
+  - libsystemd0=254
   - libthrift=0.18.1
   - libtiff=4.5.1
   - libutf8proc=2.8.0
@@ -236,6 +270,7 @@ dependencies:
   - libvorbis=1.3.7
   - libwebp-base=1.3.1
   - libxcb=1.15
+  - libxkbcommon=1.5.0
   - libxml2=2.11.4
   - libzip=1.9.2
   - libzlib=1.2.13
@@ -256,7 +291,6 @@ dependencies:
   - metpy=1.5.0
   - mistune=3.0.0
   - more-itertools=9.1.0
-  - morecantile=4.2.0
   - mpg123=1.31.3
   - msgpack-python=1.0.5
   - multidict=6.0.4
@@ -288,6 +322,7 @@ dependencies:
   - oauthlib=3.2.2
   - openjpeg=2.5.0
   - openssl=3.1.1
+  - orc=1.8.4
   - overrides=7.3.1
   - packaging=23.1
   - pamela=1.0.0
@@ -304,7 +339,6 @@ dependencies:
   - pickleshare=0.7.5
   - pillow=9.5.0
   - pint=0.22
-  - pip=23.1.2
   - pixman=0.40.0
   - pkginfo=1.9.6
   - pkgutil-resolve-name=1.3.10
@@ -323,13 +357,14 @@ dependencies:
   - psutil=5.9.5
   - pthread-stubs=0.4
   - ptyprocess=0.7.0
+  - pulseaudio-client=16.1
   - pure_eval=0.2.2
+  - pyarrow=12.0.1
   - pyasn1=0.4.8
   - pyasn1-modules=0.2.7
   - pycodestyle=2.10.0
   - pycparser=2.21
   - pycurl=7.45.1
-  - pydantic=1.10.9
   - pygments=2.15.1
   - pyjwt=2.7.0
   - pylev=1.4.0
@@ -349,12 +384,13 @@ dependencies:
   - python-json-logger=2.0.7
   - python-tzdata=2023.3
   - python_abi=3.11
-  - pytz=2023.3
+  - pytz=2023.3.post1
   - pyu2f=0.1.5
-  - pyyaml=6.0
+  - pyyaml=6.0.1
   - pyzmq=25.1.0
   - qt-main=5.15.8
   - rasterio=1.3.7
+  - rdma-core=28.9
   - re2=2023.03.02
   - readline=8.2
   - requests=2.31.0
@@ -362,8 +398,6 @@ dependencies:
   - rfc3339-validator=0.1.4
   - rfc3986-validator=0.1.1
   - rich=13.4.2
-  - rio-cogeo=2.0.1
-  - rio-tiler=5.0.1
   - rioxarray=0.14.1
   - rsa=4.9
   - rtree=1.0.1
@@ -376,6 +410,7 @@ dependencies:
   - scipy=1.11.1
   - seaborn=0.12.2
   - seaborn-base=0.12.2
+  - secretstorage=3.3.3
   - send2trash=1.8.2
   - setuptools=68.0.0
   - shapely=2.0.1
@@ -405,24 +440,33 @@ dependencies:
   - toolz=0.12.0
   - tornado=6.3.2
   - traitlets=5.9.0
-  - typing-extensions=4.7.0
-  - typing_extensions=4.7.0
+  - types-python-dateutil=2.8.19.20240106
   - typing_utils=0.1.0
   - tzcode=2023c
   - tzdata=2023c
+  - ucx=1.14.1
   - ukkonen=1.0.1
+  - uri-template=1.3.0
+  - uriparser=0.9.7
   - uritemplate=4.1.1
   - urllib3=1.26.15
   - virtualenv=20.23.1
   - watchdog=3.0.0
   - wcwidth=0.2.6
+  - webcolors=1.13
   - webencodings=0.5.1
   - websocket-client=1.6.1
   - wheel=0.40.0
   - widgetsnbextension=4.0.7
   - wrapt=1.15.0
   - xarray=2023.6.0
+  - xcb-util=0.4.0
+  - xcb-util-image=0.4.0
+  - xcb-util-keysyms=0.4.0
+  - xcb-util-renderutil=0.3.9
+  - xcb-util-wm=0.4.1
   - xerces-c=3.2.4
+  - xkeyboard-config=2.40
   - xorg-kbproto=1.0.7
   - xorg-libice=1.1.1
   - xorg-libsm=1.2.4
@@ -445,4 +489,43 @@ dependencies:
   - zlib=1.2.13
   - zstd=1.5.2
   - pip:
+      - annotated-types==0.6.0
+      - async-timeout==4.0.3
+      - asyncpg==0.29.0
+      - buildpg==0.4
+      - ciso8601==2.3.1
+      - cogeo-mosaic==7.1.0
+      - cramjam==2.6.2
+      - dateparser==1.2.0
+      - fastapi==0.109.0
+      - folium==0.15.1
+      - folium-vectortilelayer==0.2.2
+      - geojson-pydantic==1.0.2
       - jupyterlab-code-formatter==2.2.1
+      - lark==0.12.0
+      - morecantile==5.1.0
+      - orjson==3.9.10
+      - pip==23.3.2
+      - psycopg2-binary==2.9.9
+      - pydantic==2.5.3
+      - pydantic-core==2.14.6
+      - pydantic-settings==2.1.0
+      - pygeofilter==0.2.1
+      - pygeoif==1.2.0
+      - regex==2023.12.25
+      - rio-cogeo==5.1.1
+      - rio-stac==0.8.1
+      - rio-tiler==6.3.0
+      - simplejson==3.19.2
+      - starlette==0.35.1
+      - starlette-cramjam==0.3.2
+      - supermorecado==0.1.2
+      - tipg==0.6.1
+      - titiler-application==0.17.0
+      - titiler-core==0.17.0
+      - titiler-extensions==0.17.0
+      - titiler-mosaic==0.17.0
+      - typing-extensions==4.9.0
+      - tzlocal==5.2
+      - uvicorn==0.26.0
+prefix: /home/iker/mambaforge/envs/map_design_studio_demo
