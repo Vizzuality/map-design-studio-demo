@@ -41,7 +41,7 @@ class FoliumMap(folium.Map):
         tile_layer = folium.TileLayer(
             tiles=url,
             name=layer.name,
-            attr=layer.name,
+            attr=" ",
             overlay=True,
             control=True,
             opacity=layer.opacity,
