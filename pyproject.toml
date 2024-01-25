@@ -13,5 +13,6 @@ line-length = 100
 ignore = [
     "D104",  # Missing docstring in public package
     "D100",  # Missing docstring in public module
+    "E402",  # Module level import not at top of file
 ]
 extend-include = ["*.ipynb"]
