@@ -1,6 +1,7 @@
 import folium
 from folium.plugins import VectorGridProtobuf
-from layers import Layer
+
+from app.studio.layers import Layer
 
 
 class FoliumMap(folium.Map):

@@ -22,7 +22,7 @@ class RasterTile:
     This class is responsible for getting tiles from a raster layer.
     """
 
-    titiler_service_endpoint = "http://127.0.0.1:8080"
+    titiler_service_endpoint = "http://127.0.0.1:8000/tiler/cog"
 
     def get_tile_json(self, layer_info):
         """
@@ -34,14 +34,14 @@ class RasterTile:
         Returns:
             The tiles obtained from the raster layer.
         """
-        path = layer_info["path"]
+        url = layer_info["url"]
         styles = layer_info["styles"]
 
         try:
             r = httpx.get(
                 f"{self.titiler_service_endpoint}/tilejson.json",
                 params={
-                    "url": path,
+                    "url": url,
                     "bidx": "1",
                     "colormap": json.dumps(styles),
                 },
@@ -59,7 +59,7 @@ class VectorTile:
     This class is responsible for getting tiles from a vector layer.
     """
 
-    tipg_service_endpoint = "http://127.0.0.1:8000"
+    tipg_service_endpoint = "http://127.0.0.1:8000/tiler/features"
 
     def get_tile_json(self, layer_info):
         """

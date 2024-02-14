@@ -1,4 +1,5 @@
 [tool.ruff]
+src = ["src"]
 select = [
     "D1",   # pydocstyle errors
     "E",    # pycodestyle errors

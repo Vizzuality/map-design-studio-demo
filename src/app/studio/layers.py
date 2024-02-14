@@ -1,28 +1,25 @@
-from tiles import get_tile_type
+import httpx
+
+from app.studio.tiles import get_tile_type
 
 
 class _LayerDatabase:
+    service_endpoint = "http://127.0.0.1:8000"
+
     def __init__(self):
-        self._layers = {
-            1: {
-                "name": "Landscape Capital Index",
-                "type": "raster",
-                "colormap_type": "continuous",
-                "path": "../data/raw/raster_data/final_lci.tif",
-            },
-            2: {
-                "name": "Land Cover",
-                "type": "raster",
-                "colormap_type": "categorical",
-                "path": "../data/raw/raster_data/land_cover.tif",
-            },
-            3: {
-                "name": "Country Boundaries",
-                "type": "vector",
-                "colormap_type": "categorical",
-                "collection": "public.countries",
-            },
-        }
+        try:
+            response_body = httpx.get(
+                f"{self.service_endpoint}/layers",
+            ).json()
+
+            self._layers = {
+                item["id"]: {key: value for key, value in item.items() if key != "id"}
+                for item in response_body
+            }
+        except httpx.HTTPError as e:
+            print(f"HTTP error occurred: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def get_layer_info(self, layer_id):
         info = self._layers.get(layer_id)

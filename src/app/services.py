@@ -1,5 +1,6 @@
-from layers import Layer
 from pydantic import BaseModel
+
+from app.studio.layers import Layer
 
 
 class RasterLayerInfo(BaseModel):
