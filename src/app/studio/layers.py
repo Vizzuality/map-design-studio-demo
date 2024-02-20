@@ -1,15 +1,22 @@
+import os
+
 import httpx
+from dotenv import load_dotenv
 
 from app.studio.tiles import get_tile_type
 
+# Load the environment variables from the .env file
+load_dotenv()
+
+# Get the service endpoint from the environment variables
+service_endpoint = os.environ.get("API_BASE_URL")
+
 
 class _LayerDatabase:
-    service_endpoint = "http://127.0.0.1:8000"
-
     def __init__(self):
         try:
             response_body = httpx.get(
-                f"{self.service_endpoint}/layers",
+                f"{service_endpoint}/layers",
             ).json()
 
             self._layers = {
@@ -24,7 +31,7 @@ class _LayerDatabase:
     def get_layer_info(self, layer_id):
         info = self._layers.get(layer_id)
         if not info:
-            raise ValueError("invalid employee_id")
+            raise ValueError("invalid layer_id")
         return info
 
 

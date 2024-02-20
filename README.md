@@ -1,7 +1,7 @@
 map-design-studio-demo
 ==============================
 
-This repository serves as a hub for developing a versatile platform where designers can effortlessly create and style vector and raster map layers.
+This repository serves as the API for a versatile platform where designers can effortlessly create and style vector and raster map layers.
 
 --------
 
@@ -155,14 +155,30 @@ It utilizes the TiTiler and TiPg services to provide a unified API for accessing
 1. To start the FastAPI server, use the following command:
 
 ```
-python main.py
+python -m uvicorn app.main:app
 ```
 
 2. Once the server is running, you can send HTTP requests to the API endpoints.
 
+   **`/layers` Endpoint**
+
+   - URL: http://localhost:8000/layers
+   - Method: GET
+
+   Example Request:
+
+      ```commandline
+      curl -X GET -H "Content-Type: application/json" http://localhost:8000/layers
+      ```
+
+   Response:
+   ```
+   [{"id":3,"name":"Country Boundaries","type":"vector","colormap_type":"categorical","url":null,"collection":"public.countries"},{"id":2,"name":"Land Cover","type":"raster","colormap_type":"categorical","url":"../data/raw/raster_data/land_cover.tif","collection":null},{"id":1,"name":"Landscape Capital Index","type":"raster","colormap_type":"continuous","url":"../data/raw/raster_data/final_lci.tif","collection":null}]
+   ```
+
    **`/raster_tiles` Endpoint**
 
-   - URL: http://localhost:8088/raster_tiles
+   - URL: http://localhost:8000/raster_tiles
    - Method: GET
    - Request Body: JSON object with the following properties:
      - `id`: ID of the raster dataset
@@ -187,12 +203,12 @@ python main.py
             "10": "#64FFF8",
             "11": "#F9FEA4"
             }
-      }' http://localhost:8088/raster_tiles
+      }' http://localhost:8000/raster_tiles
       ```
 
    Response:
    ```
-   {'url': 'http://127.0.0.1:8080/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?url=..%2Fdata%2Fraw%2Fraster_data%2Fland_cover.tif&bidx=1&colormap=%7B%220%22%3A+%22%231327FE%22%2C+%221%22%3A+%22%230B4614%22%2C+%222%22%3A+%22%230C691B%22%2C+%223%22%3A+%22%2354A51B%22%2C+%224%22%3A+%22%2376D01E%22%2C+%225%22%3A+%22%23DCCF5C%22%2C+%226%22%3A+%22%23B4FE25%22%2C+%227%22%3A+%22%23DADC4D%22%2C+%228%22%3A+%22%23C25045%22%2C+%229%22%3A+%22%23A4A4A4%22%2C+%2210%22%3A+%22%2364FFF8%22%2C+%2211%22%3A+%22%23F9FEA4%22%7D',
+   {'url': 'http://127.0.0.1:8000/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?url=..%2Fdata%2Fraw%2Fraster_data%2Fland_cover.tif&bidx=1&colormap=%7B%220%22%3A+%22%231327FE%22%2C+%221%22%3A+%22%230B4614%22%2C+%222%22%3A+%22%230C691B%22%2C+%223%22%3A+%22%2354A51B%22%2C+%224%22%3A+%22%2376D01E%22%2C+%225%22%3A+%22%23DCCF5C%22%2C+%226%22%3A+%22%23B4FE25%22%2C+%227%22%3A+%22%23DADC4D%22%2C+%228%22%3A+%22%23C25045%22%2C+%229%22%3A+%22%23A4A4A4%22%2C+%2210%22%3A+%22%2364FFF8%22%2C+%2211%22%3A+%22%23F9FEA4%22%7D',
     'info': {'name': 'Land Cover',
      'type': 'raster',
      'colormap_type': 'categorical',
@@ -212,17 +228,17 @@ python main.py
    ```
    **`/vector_tiles` Endpoint**
 
-   - URL: http://localhost:8088/vector_tiles
+   - URL: http://localhost:8000/vector_tiles
    - Method: GET
    - Request Body: JSON object with the following properties:
-     - `id`: ID of the raster dataset
+     - `id`: ID of the vector dataset
 
    Example Request:
 
       ```commandline
       curl -X GET -H "Content-Type: application/json" -d '{
         "id": 2,
-      }' http://localhost:8088/vector_tiles
+      }' http://localhost:8000/vector_tiles
       ```
 
    Response:

@@ -1,78 +1,65 @@
+import os
+
+import httpx
+from dotenv import load_dotenv
 from pydantic import BaseModel
 
-from app.studio.layers import Layer
+# Load the environment variables from the .env file
+load_dotenv()
+
+API_BASE_URL = os.environ.get("API_BASE_URL")
 
 
-class RasterLayerInfo(BaseModel):
+class RasterTile(BaseModel):
     """
-    Represents the information of a raster layer.
+    Represents the information of a raster tile.
     """
 
     url: str
-    info: dict
 
 
-class VectorLayerInfo(BaseModel):
+class VectorTile(BaseModel):
     """
-    Represents the information of a vector layer.
+    Represents the information of a vector tile.
     """
 
     url: str
     layer_name: str
-    info: dict
 
 
-async def get_titiler_api_response(data) -> RasterLayerInfo:
+class TileParams(BaseModel):
     """
-    Get the raster tiles url from the layer.
-
-    Args:
-        id: The ID of the layer.
-        styles: The styles of the layer.
-        opacity: The opacity of the layer.
-
-    Returns:
-        str: The url of the tiles.
+    Represents the parameters of a tile.
     """
-    # Create a Layer object.
-    layer = Layer(data.id, data.styles)
-    # Get the tile json from the layer.
-    try:
-        tile_json = layer.get_tile_json()
-    except Exception as e:
-        return {"error": str(e)}
 
-    # Get the url of the tiles.
-    url = tile_json["tiles"][0]
-
-    raster_layer_info = RasterLayerInfo(url=url, info=layer.info)
-
-    return raster_layer_info
+    url: str
+    bidx: str
+    colormap: str
 
 
-async def get_tipg_api_response(data) -> VectorLayerInfo:
+async def get_titiler_api_response(params: TileParams) -> RasterTile:
     """
-    Get the vector tiles url from the layer.
-
-    Args:
-        id: The ID of the layer.
-
-    Returns:
-        str: The url of the tiles.
+    Get raster tiles
     """
-    # Create a Layer object.
-    layer = Layer(data.id)
-    # Get the tile json from the layer.
-    try:
-        tile_json = layer.get_tile_json()
-    except Exception as e:
-        return {"error": str(e)}
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{API_BASE_URL}/tilejson.json", params=params.model_dump())
+        tile_json = response.json()
 
-    # Get the url of the tiles.
-    url = tile_json["tiles"][0]
-    # Get vector layer name.
-    layer_name = tile_json.get("vector_layers")[0].get("id")
+    raster_tile = RasterTile(url=tile_json["tiles"][0])
 
-    vector_layer_info = VectorLayerInfo(url=url, layer_name=layer_name, info=layer.info)
+    return raster_tile
 
-    return vector_layer_info
+
+async def get_tipg_api_response(collection: str) -> VectorTile:
+    """
+    Get raster tiles
+    """
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{API_BASE_URL}/collections/{collection}/tilejson.json")
+        tile_json = response.json()
+
+    vector_tile = VectorTile(
+        url=tile_json["tiles"][0], layer_name=tile_json.get("vector_layers")[0].get("id")
+    )
+
+    return vector_tile

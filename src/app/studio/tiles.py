@@ -1,6 +1,14 @@
 import json
+import os
 
 import httpx
+from dotenv import load_dotenv
+
+# Load the environment variables from the .env file
+load_dotenv()
+
+# Get the service endpoint from the environment variables
+service_endpoint = os.environ.get("API_BASE_URL")
 
 
 class _TileSystem:
@@ -22,8 +30,6 @@ class RasterTile:
     This class is responsible for getting tiles from a raster layer.
     """
 
-    titiler_service_endpoint = "http://127.0.0.1:8000/tiler/cog"
-
     def get_tile_json(self, layer_info):
         """
         Get tiles from a raster layer.
@@ -39,7 +45,7 @@ class RasterTile:
 
         try:
             r = httpx.get(
-                f"{self.titiler_service_endpoint}/tilejson.json",
+                f"{service_endpoint}/tilejson.json",
                 params={
                     "url": url,
                     "bidx": "1",
@@ -59,8 +65,6 @@ class VectorTile:
     This class is responsible for getting tiles from a vector layer.
     """
 
-    tipg_service_endpoint = "http://127.0.0.1:8000/tiler/features"
-
     def get_tile_json(self, layer_info):
         """
         Get tiles from a vector layer.
@@ -73,9 +77,7 @@ class VectorTile:
         """
         collection = layer_info["collection"]
         try:
-            r = httpx.get(
-                f"{self.tipg_service_endpoint}/collections/{collection}/tilejson.json"
-            ).json()
+            r = httpx.get(f"{service_endpoint}/collections/{collection}/tilejson.json").json()
         except httpx.HTTPError as e:
             print(f"HTTP error occurred: {e}")
         except Exception as e:
