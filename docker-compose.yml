@@ -1,4 +1,4 @@
-version:  '3.8'
+version:  '3.9'
 
 services:
   app:
@@ -11,18 +11,17 @@ services:
       - 8000:8000
     depends_on:
       - postgresql
-    restart: on-failure
 
   postgresql:
     image: 'postgis/postgis:16-3.4'
-    env_file: .env
     ports:
-      - ${POSTGRES_PORT}:5432
+      - ${OUT_POSTGRES_PORT}:5432
     volumes:
       - postgresql:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DBNAME}
     restart: on-failure
 
 volumes:

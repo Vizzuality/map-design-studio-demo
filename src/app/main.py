@@ -1,4 +1,3 @@
-import os
 from contextlib import asynccontextmanager
 
 import jinja2
@@ -17,18 +16,8 @@ from titiler.core.factory import TilerFactory
 
 from app.routes import router
 
-# Load the environment variables from the .env file
-load_dotenv()
-
 # Create a PostgresSettings object
-# database_url=f'postgresql://{os.environ.get("POSTGRES_USERNAME")}:{os.environ.get("POSTGRES_PASSWORD")}@localhost:5433/postgis',
-postgres_settings = PostgresSettings(
-    user=os.environ.get("POSTGRES_USERNAME"),
-    password=os.environ.get("POSTGRES_PASSWORD"),
-    database="postgis",
-    host="postgresql",
-    port=5433,
-)
+postgres_settings = PostgresSettings()
 db_settings = DatabaseSettings()
 custom_sql_settings = CustomSQLSettings()
 
@@ -65,9 +54,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(name="Design Studio", lifespan=lifespan)
 
-# Add main router
-app.include_router(router, tags=["Design Studio API"])
-
 # Create a TilerFactory
 raster_tiler = TilerFactory()
 app.include_router(raster_tiler.router, tags=["TiTiler Raster Tiles Server"])
@@ -80,10 +66,14 @@ templates = Jinja2Templates(
 
 vector_tiler = OGCTilesFactory(
     templates=templates,
-    with_common=True,
+    with_common=False,
     with_viewer=True,
 )
 app.include_router(vector_tiler.router)
+
+
+# Add main router
+app.include_router(router, tags=["Design Studio API"])
 
 app.add_middleware(
     CORSMiddleware,

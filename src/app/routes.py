@@ -4,6 +4,8 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from starlette import status
+from starlette.responses import RedirectResponse
 
 from app.services import get_tipg_api_response, get_titiler_api_response
 
@@ -112,3 +114,9 @@ async def get_vector_tiles(vector_data: VectorData, request: Request):
     vector_layer_info = VectorLayerInfo(**{**vector_tile.model_dump(), "info": layer_info})
 
     return vector_layer_info.model_dump()
+
+
+@router.get("/")
+def root_redirect():
+    """Landing page"""
+    return RedirectResponse("/docs", status_code=status.HTTP_308_PERMANENT_REDIRECT)
