@@ -21,27 +21,18 @@ from app.routes import router
 load_dotenv()
 
 # Create a PostgresSettings object
-postgres_settings = PostgresSettings(database_url=os.environ.get("DATABASE_URL"))
+# database_url=f'postgresql://{os.environ.get("POSTGRES_USERNAME")}:{os.environ.get("POSTGRES_PASSWORD")}@localhost:5433/postgis',
+postgres_settings = PostgresSettings(
+    user=os.environ.get("POSTGRES_USERNAME"),
+    password=os.environ.get("POSTGRES_PASSWORD"),
+    database="postgis",
+    host="postgresql",
+    port=5433,
+)
 db_settings = DatabaseSettings()
 custom_sql_settings = CustomSQLSettings()
 
 
-# Connect to the Postgres database
-# @asynccontextmanager
-# async def lifespan(app: FastAPI):
-#    """FastAPI Lifespan
-#    - Create DB connection POOL and `register` the custom tipg SQL function within `pg_temp`
-#    - Create the collection_catalog
-#    - Close the connection pool when closing the application
-#    """
-#    await connect_to_db(
-#        app,
-#        settings=postgres_settings,
-#        schemas=["public"],
-#    )
-#    await register_collection_catalog(app, schemas=["public"])
-#    yield
-#    await close_db_connection(app)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """FastAPI Lifespan."""
@@ -118,7 +109,3 @@ app.add_middleware(
 )
 
 add_exception_handlers(app, DEFAULT_STATUS_CODES)
-
-# if __name__ == "__main__":
-#     uvicorn.run(app=app, host="127.0.0.1", port=8080, log_level="info")
-# python -m uvicorn app.main:app

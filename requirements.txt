@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-dotenv
+Jinja2
+starlette
+starlette_cramjam
+tipg
+titiler

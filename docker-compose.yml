@@ -1,14 +1,29 @@
 version:  '3.8'
+
 services:
-    map_design_studio_demo-notebooks:
-      build:
-        context: .
-      volumes:
-        - ./data:/home/mambauser/data
-        - ./notebooks:/home/mambauser/notebooks
-        - ./src:/home/mambauser/src
-      ports:
-        - 8888:8888
-        - 8787:8787  # dask dashboard
-      container_name: map_design_studio_demo_notebooks
-      env_file: .env
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: design_studio_app
+    env_file: .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgresql
+    restart: on-failure
+
+  postgresql:
+    image: 'postgis/postgis:16-3.4'
+    env_file: .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+    restart: on-failure
+
+volumes:
+  postgresql:
