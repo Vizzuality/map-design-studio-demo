@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 
 import jinja2
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.templating import Jinja2Templates
